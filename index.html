@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手繪 Lo-Fi 風：YT 影片外框魔法師</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Yusei Magic (手寫日文字體) & Nunito (圓潤英文字體) -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Yusei+Magic&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Nunito"', 'sans-serif'],
+                        handdrawn: ['"Yusei Magic"', '"Nunito"', 'sans-serif'],
+                    },
+                    colors: {
+                        lofi: {
+                            bg: '#f4eee1',       /* 溫暖米白牆面 */
+                            paper: '#fffdf9',    /* 筆記本白紙 */
+                            line: '#5c4d44',     /* 手繪深棕色線條 */
+                            green: '#a3b18a',    /* 鼠尾草綠 (窗簾/植物) */
+                            blue: '#9babc2',     /* 電腦螢幕灰藍色 */
+                            brown: '#d4a373',    /* 木質/鉛筆棕色 */
+                            yellow: '#f2e8b6',   /* 便利貼黃色 */
+                            pink: '#e2b4bd',     /* 柔和粉色 */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            /* 背景加上柔和的手繪網格，模擬圖片中的鐵網留言板或筆記本 */
+            background-color: #f4eee1; 
+            background-image: 
+                linear-gradient(#e3dbcc 2px, transparent 2px),
+                linear-gradient(90deg, #e3dbcc 2px, transparent 2px);
+            background-size: 30px 30px;
+            color: #5c4d44;
+        }
+
+        /* 自訂手繪風捲軸 */
+        ::-webkit-scrollbar { width: 14px; }
+        ::-webkit-scrollbar-track { background: #f4eee1; border-left: 3px solid #5c4d44; }
+        ::-webkit-scrollbar-thumb { background: #d4a373; border: 3px solid #5c4d44; border-radius: 20px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5c4d44; }
+
+        /* 手繪卡片基礎樣式：粗邊框 + 實色偏移陰影 */
+        .lofi-border {
+            border: 3.5px solid #5c4d44;
+        }
+        
+        .lofi-card {
+            background-color: #fffdf9;
+            border: 3.5px solid #5c4d44;
+            border-radius: 16px;
+            box-shadow: 6px 6px 0px #5c4d44;
+            transition: transform 0.2s;
+        }
+
+        /* 按鈕互動樣式 */
+        .lofi-btn {
+            border: 3.5px solid #5c4d44;
+            box-shadow: 4px 4px 0px #5c4d44;
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
+        }
+        .lofi-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #5c4d44;
+        }
+        .lofi-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px #5c4d44;
+        }
+
+        /* 輸入框樣式 */
+        .lofi-input {
+            background-color: #fffdf9;
+            border: 3.5px solid #5c4d44;
+            border-radius: 12px;
+            box-shadow: inset 3px 3px 0px rgba(92, 77, 68, 0.08);
+            transition: all 0.2s;
+        }
+        .lofi-input:focus {
+            outline: none;
+            background-color: #fff;
+            border-color: #5c4d44;
+            box-shadow: 0 0 0 4px rgba(163, 177, 138, 0.4); /* 綠色光暈 */
+        }
+
+        /* 模擬手繪不規則圓形 (步驟數字) */
+        .hand-circle {
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 3px solid #5c4d44;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans selection:bg-lofi-yellow selection:text-lofi-line">
+
+    <header class="bg-lofi-paper lofi-border border-b-4 py-4 px-6 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <!-- 裝飾用圖示 -->
+                <div class="bg-lofi-green text-lofi-paper w-12 h-12 flex items-center justify-center text-2xl hand-circle transform -rotate-6 shadow-[2px_2px_0_#5c4d44]">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-handdrawn font-bold text-lofi-line tracking-wide">
+                        YT 影片外框魔法師
+                    </h1>
+                    <p class="text-sm font-bold text-lofi-brown mt-1">
+                        Group Project · 可部署於 GitHub Pages，專為 Google Sites 打造！
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-4 py-2 bg-lofi-yellow lofi-border rounded-xl text-sm font-bold shadow-[2px_2px_0_#5c4d44] transform rotate-2">
+                    <i class="fa-solid fa-pen-fancy mr-2"></i> 手繪 Lo-Fi 風格
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 mt-4">
+        
+        <!-- 左側設定面板 -->
+        <div class="lg:col-span-5 space-y-6 flex flex-col">
+            
+            <!-- Step 1: 影片設定 -->
+            <div class="lofi-card p-6 relative">
+                <!-- 膠帶裝飾 -->
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-lofi-pink/40 rotate-2 border border-lofi-pink shadow-sm"></div>
+                
+                <h2 class="text-lg font-handdrawn font-bold text-lofi-line mb-5 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-lofi-brown text-lofi-paper flex items-center justify-center text-base hand-circle">1</span>
+                    放入 YouTube 影片
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-lofi-line mb-2">網址或影片 ID</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-lofi-line">
+                                <i class="fa-brands fa-youtube text-lg"></i>
+                            </span>
+                            <input type="text" id="yt-url" placeholder="例如: https://youtu.be/..." 
+                                class="w-full pl-12 pr-4 py-3 lofi-input text-lofi-line font-bold text-sm"
+                                value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-lofi-line mb-2">外框寬度</label>
+                            <input type="text" id="embed-width" value="100%" 
+                                class="w-full px-4 py-2.5 lofi-input text-lofi-line font-bold text-sm text-center">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-lofi-line mb-2">外框高度</label>
+                            <input type="text" id="embed-height" value="450px" 
+                                class="w-full px-4 py-2.5 lofi-input text-lofi-line font-bold text-sm text-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: 選擇風格 -->
+            <div class="lofi-card p-6 flex-1 relative">
+                <div class="absolute -top-3 right-8 w-12 h-6 bg-lofi-blue/40 -rotate-3 border border-lofi-blue shadow-sm"></div>
+
+                <h2 class="text-lg font-handdrawn font-bold text-lofi-line mb-5 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-lofi-green text-lofi-paper flex items-center justify-center text-base hand-circle">2</span>
+                    選擇可愛風格裝飾
+                </h2>
+                
+                <!-- 選項網格 -->
+                <div class="grid grid-cols-2 gap-3 max-h-[380px] overflow-y-auto pr-2 pb-2">
+                    
+                    <button onclick="selectStyle('q-animal')" id="btn-q-animal" class="style-card text-left p-4 rounded-xl lofi-border bg-lofi-paper transition-all relative">
+                        <div class="font-handdrawn font-bold text-lofi-line text-lg mb-1">🐶 可愛動物</div>
+                        <p class="text-xs text-lofi-line/70 font-bold leading-relaxed">軟萌雲朵邊框與肉球，充滿卡哇伊感！</p>
+                    </button>
+
+                    <button onclick="selectStyle('color-tv')" id="btn-color-tv" class="style-card text-left p-4 rounded-xl lofi-border bg-lofi-paper transition-all">
+                        <div class="font-handdrawn font-bold text-lofi-line text-lg mb-1">📺 繽紛電視</div>
+                        <p class="text-xs text-lofi-line/70 font-bold leading-relaxed">帶有天線的復古胖胖電視機，彩虹色條點綴。</p>
+                    </button>
+
+                    <button onclick="selectStyle('sakura-cat')" id="btn-sakura-cat" class="style-card text-left p-4 rounded-xl lofi-border bg-lofi-paper transition-all">
+                        <div class="font-handdrawn font-bold text-lofi-line text-lg mb-1">🌸 櫻花貓咪</div>
+                        <p class="text-xs text-lofi-line/70 font-bold leading-relaxed">粉嫩櫻花飄落，搭配慵懶的白貓，和風可愛。</p>
+                    </button>
+
+                    <button onclick="selectStyle('matcha-dango')" id="btn-matcha-dango" class="style-card text-left p-4 rounded-xl lofi-border bg-lofi-paper transition-all">
+                        <div class="font-handdrawn font-bold text-lofi-line text-lg mb-1">🍡 抹茶糰子</div>
+                        <p class="text-xs text-lofi-line/70 font-bold leading-relaxed">清新抹茶綠，充滿日式茶屋的糰子與甜點。</p>
+                    </button>
+                    
+                    <button onclick="selectStyle('starry-cloud')" id="btn-starry-cloud" class="style-card text-left p-4 rounded-xl lofi-border bg-lofi-paper transition-all">
+                        <div class="font-handdrawn font-bold text-lofi-line text-lg mb-1">☁️ 星星夢境</div>
+                        <p class="text-xs text-lofi-line/70 font-bold leading-relaxed">柔和粉藍與星星點綴，棉花糖夢幻邊框。</p>
+                    </button>
+
+                    <button onclick="selectStyle('magical-girl')" id="btn-magical-girl" class="style-card text-left p-4 rounded-xl lofi-border bg-lofi-paper transition-all">
+                        <div class="font-handdrawn font-bold text-lofi-line text-lg mb-1">🎀 魔法少女</div>
+                        <p class="text-xs text-lofi-line/70 font-bold leading-relaxed">華麗的蕾絲與大緞帶，充滿動漫魔法氣息。</p>
+                    </button>
+                </div>
+
+                <!-- 標題設定 -->
+                <div class="mt-5 pt-5 border-t-4 border-dashed border-lofi-line/20 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm font-bold text-lofi-line">外框標題文字</label>
+                        <input type="text" id="frame-title" placeholder="例如: 每日萌寵特輯" value="🐾 Q版萌寵特輯"
+                            class="w-3/5 px-4 py-2 lofi-input text-lofi-line font-bold text-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右側預覽與輸出區 -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+            
+            <!-- 即時預覽區 -->
+            <div class="lofi-card p-6 flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-handdrawn font-bold text-lofi-line flex items-center gap-3">
+                        <span class="w-8 h-8 bg-lofi-yellow text-lofi-line flex items-center justify-center text-base hand-circle">3</span>
+                        即時效果預覽
+                    </h2>
+                    <span class="text-xs font-bold text-lofi-paper bg-lofi-line px-3 py-1.5 rounded-lg hand-circle shadow-[2px_2px_0_#d4a373]">
+                        <i class="fa-solid fa-eye mr-1"></i> Preview
+                    </span>
+                </div>
+
+                <!-- 預覽容器 (模擬圖片中的電腦螢幕) -->
+                <div class="bg-lofi-blue lofi-border rounded-2xl p-6 flex items-center justify-center min-h-[420px] relative overflow-hidden shadow-inner">
+                    <!-- 螢幕邊框高光點綴 -->
+                    <div class="absolute top-2 left-3 w-16 h-2 bg-white/20 rounded-full"></div>
+                    
+                    <div id="preview-container" class="w-full max-w-xl transition-all duration-300 z-10">
+                        <!-- 產生的 HTML 將渲染於此 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- HTML 程式碼輸出區 -->
+            <div class="lofi-card p-6 flex flex-col flex-1">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-handdrawn font-bold text-lofi-line flex items-center gap-3">
+                        <span class="w-8 h-8 bg-lofi-pink text-lofi-line flex items-center justify-center text-base hand-circle">4</span>
+                        獲取 HTML 代碼
+                    </h2>
+                    <button onclick="copyCode()" id="copy-btn" class="lofi-btn bg-lofi-green text-lofi-paper px-5 py-2 rounded-xl text-sm font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-copy"></i> 複製代碼
+                    </button>
+                </div>
+                
+                <div class="relative flex-1 min-h-[150px]">
+                    <textarea id="html-output" readonly
+                        class="w-full h-full min-h-[160px] p-4 bg-[#2a2420] font-mono text-[13px] text-lofi-yellow border-4 border-lofi-line rounded-xl focus:outline-none resize-none leading-relaxed selection:bg-lofi-green selection:text-white shadow-inner"
+                    ></textarea>
+                </div>
+
+                <!-- 提示便利貼 -->
+                <div class="mt-4 bg-lofi-yellow lofi-border rounded-xl p-4 shadow-[4px_4px_0_#5c4d44] relative transform -rotate-1">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-10 h-10 bg-red-400/80 rounded-full shadow-sm flex items-center justify-center text-white scale-50"><i class="fa-solid fa-thumbtack"></i></div>
+                    <div class="text-sm text-lofi-line font-bold mt-1">
+                        <div class="font-handdrawn text-lg mb-1"><i class="fa-solid fa-book-open mr-1"></i> 魔法師小筆記：</div>
+                        <ul class="text-xs space-y-1.5 list-disc list-inside leading-relaxed">
+                            <li><b>網站託管：</b>您可以將此產生器網站的程式碼直接放上 <b>GitHub Pages</b>，打造自己的專屬工具站！</li>
+                            <li><b>影片嵌入：</b>複製上方程式碼 ➔ 回到 <b>Google Sites</b> ➔ 點右側「嵌入」 ➔ 選擇「嵌入程式碼」 ➔ 貼上即可。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        let currentStyle = 'q-animal';
+        
+        function getYouTubeId(url) {
+            if (!url) return 'dQw4w9WgXcQ';
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : 'dQw4w9WgXcQ';
+        }
+
+        function selectStyle(style) {
+            currentStyle = style;
+            
+            // 重置卡片樣式
+            document.querySelectorAll('.style-card').forEach(card => {
+                card.className = "style-card text-left p-4 rounded-xl lofi-border bg-lofi-paper transition-all hover:-translate-y-1";
+                card.style.boxShadow = "none";
+            });
+            
+            // 設定選中狀態 (使用黃色背景+實體陰影)
+            const activeBtn = document.getElementById(`btn-${style}`);
+            if (activeBtn) {
+                activeBtn.className = "style-card text-left p-4 rounded-xl lofi-border bg-lofi-yellow transition-all transform -translate-y-1";
+                activeBtn.style.boxShadow = "4px 4px 0px #5c4d44";
+            }
+            
+            // 自動變更標題建議
+            const titleSuggestions = {
+                'q-animal': '🐾 Q版萌寵特輯',
+                'color-tv': '📺 週末卡通時間',
+                'sakura-cat': '🌸 春日櫻花與貓',
+                'matcha-dango': '🍡 抹茶甜點日常',
+                'starry-cloud': '☁️ 晚安星星夢境',
+                'magical-girl': '🎀 魔法少女變身'
+            };
+            if(titleSuggestions[style]) {
+                document.getElementById('frame-title').value = titleSuggestions[style];
+            }
+
+            updatePreviewAndCode();
+        }
+
+        function generateHTMLCode(videoId, width, height, title) {
+            let innerContent = '';
+            let wrapperStyle = '';
+            
+            const fontFamily = `'Nunito', 'Yusei Magic', 'Microsoft JhengHei', sans-serif`;
+
+            // 保持原有的可愛外框生成邏輯，微調一點陰影讓它融合進 Lo-Fi 設計
+            switch(currentStyle) {
+                case 'q-animal':
+                    wrapperStyle = `background: #fff0f5; border: 4px dashed #ffb6c1; border-radius: 36px; padding: 24px; box-shadow: 6px 6px 0px rgba(255, 182, 193, 0.8); position: relative; font-family: ${fontFamily};`;
+                    innerContent = `
+                        <div style="position: absolute; top: -18px; left: 24px; background: #fff; border: 3px solid #ffb6c1; color: #ff69b4; padding: 4px 16px; border-radius: 20px; font-size: 14px; font-weight: 900; box-shadow: 3px 3px 0 #ffb6c1; display: flex; align-items: center; gap: 8px;">
+                            ${title || 'Q版可愛特輯'}
+                        </div>
+                        <div style="position: absolute; bottom: -20px; right: 20px; font-size: 36px; background: #fff; border-radius: 50%; padding: 5px; box-shadow: 3px 3px 0px rgba(255, 182, 193, 1); border: 3px solid #ffb6c1;">🐶🐱</div>
+                        <div style="position: absolute; top: 10px; right: 10px; font-size: 20px; opacity: 0.7;">🐾</div>
+                        <div style="border-radius: 20px; overflow: hidden; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); border: 4px solid #fff; background: #ffe4e1; margin-top: 10px;">
+                            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+                                <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'color-tv':
+                    wrapperStyle = `background: #f8fafc; border: 6px solid #475569; border-radius: 30px; padding: 20px 20px 35px 20px; box-shadow: 8px 8px 0 #475569; position: relative; font-family: ${fontFamily}; margin-top: 20px;`;
+                    innerContent = `
+                        <div style="position:absolute; top:-35px; left: 50%; transform: translateX(-50%); display:flex; gap: 30px;">
+                            <div style="width: 6px; height: 40px; background: #475569; transform: rotate(-35deg); border-radius: 10px; position:relative;">
+                                <div style="position:absolute; top:-6px; left:-4px; width:14px; height:14px; background:#ef4444; border-radius:50%; border: 2px solid #475569;"></div>
+                            </div>
+                            <div style="width: 6px; height: 40px; background: #475569; transform: rotate(35deg); border-radius: 10px; position:relative;">
+                                <div style="position:absolute; top:-6px; left:-4px; width:14px; height:14px; background:#ef4444; border-radius:50%; border: 2px solid #475569;"></div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px;">
+                            <span style="font-weight: 900; color: #475569; font-size: 15px; letter-spacing: 1px;">${title || 'COLOR TV'}</span>
+                            <div style="display: flex; gap: 6px;">
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; border: 2px solid #475569;"></div>
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: #eab308; border: 2px solid #475569;"></div>
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: #22c55e; border: 2px solid #475569;"></div>
+                            </div>
+                        </div>
+                        <div style="height: 6px; width: 100%; background: linear-gradient(to right, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #a855f7); border-radius: 3px; margin-bottom: 12px; border: 1px solid #475569;"></div>
+                        <div style="border-radius: 16px; overflow: hidden; border: 6px solid #334155; background: #000;">
+                            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+                                <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                            </div>
+                        </div>
+                        <div style="position: absolute; bottom: 12px; right: 25px; display: flex; gap: 15px;">
+                            <div style="width: 16px; height: 16px; border-radius: 50%; background: #cbd5e1; border: 3px solid #475569;"></div>
+                            <div style="width: 16px; height: 16px; border-radius: 50%; background: #cbd5e1; border: 3px solid #475569;"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'sakura-cat':
+                    wrapperStyle = `background: #fff5f7; border: 4px solid #ff99b3; border-radius: 24px; padding: 25px; box-shadow: 6px 6px 0 #ff99b3; font-family: ${fontFamily}; position: relative; margin-top: 20px;`;
+                    innerContent = `
+                        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #ff99b3; color: white; padding: 6px 24px; border-radius: 30px; font-weight: bold; font-size: 15px; border: 3px solid #fff; box-shadow: 3px 3px 0 rgba(255, 105, 180, 0.4); white-space: nowrap;">
+                            ${title || '🌸 春日櫻花與貓 🌸'}
+                        </div>
+                        <div style="position: absolute; top: -15px; left: 10px; font-size: 32px; transform: rotate(-15deg); filter: drop-shadow(2px 2px 0 rgba(255, 153, 179, 0.5));">🐈</div>
+                        <div style="position: absolute; bottom: 10px; right: 15px; font-size: 24px;">🌸</div>
+                        <div style="border-radius: 16px; overflow: hidden; border: 4px solid #fff; background: #000; margin-top: 10px; box-shadow: 0 0 0 2px #ff99b3;">
+                            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+                                <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'matcha-dango':
+                    wrapperStyle = `background: #f0f7f4; border: 5px solid #6b8e23; border-radius: 12px 40px 12px 40px; padding: 24px; box-shadow: 6px 6px 0 #6b8e23; font-family: ${fontFamily}; position: relative;`;
+                    innerContent = `
+                        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 15px; gap: 10px;">
+                            <span style="font-size: 24px;">🍵</span>
+                            <span style="color: #556b2f; font-weight: 900; font-size: 16px; background: #fff; padding: 6px 16px; border-radius: 20px; border: 3px solid #6b8e23; box-shadow: 2px 2px 0 #6b8e23;">${title || '抹茶甜點日常'}</span>
+                            <span style="font-size: 24px;">🍡</span>
+                        </div>
+                        <div style="border-radius: 8px 24px 8px 24px; overflow: hidden; border: 4px solid #fff; background: #000; box-shadow: 0 0 0 3px #6b8e23;">
+                            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+                                <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'starry-cloud':
+                    wrapperStyle = `background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); border: 4px solid #fff; border-radius: 30px; padding: 24px; box-shadow: 6px 6px 0 #8ec5fc; font-family: ${fontFamily}; position: relative;`;
+                    innerContent = `
+                        <div style="text-align: center; margin-bottom: 16px; color: #fff; font-weight: bold; font-size: 16px; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); letter-spacing: 2px; border-bottom: 2px dashed #fff; padding-bottom: 8px;">
+                            ✨ ${title || '晚安星星夢境'} ✨
+                        </div>
+                        <div style="position: absolute; top: 15px; left: 20px; font-size: 24px;">☁️</div>
+                        <div style="position: absolute; bottom: 15px; right: 20px; font-size: 24px;">🌙</div>
+                        <div style="border-radius: 20px; overflow: hidden; background: #000; border: 4px solid rgba(255,255,255,0.8);">
+                            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+                                <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'magical-girl':
+                    wrapperStyle = `background: #fff; border: 4px solid #ff69b4; border-radius: 16px; padding: 24px; box-shadow: 6px 6px 0 #ffb6c1; font-family: ${fontFamily}; position: relative; margin: 10px;`;
+                    innerContent = `
+                        <div style="position: absolute; top: -20px; left: -20px; font-size: 36px; filter: drop-shadow(2px 2px 0 #ff69b4);">🎀</div>
+                        <div style="position: absolute; bottom: -20px; right: -20px; font-size: 36px; filter: drop-shadow(2px 2px 0 #ff69b4);">💖</div>
+                        <div style="text-align: center; margin-bottom: 12px; color: #ff1493; font-weight: 900; font-size: 16px; border: 3px solid #ffb6c1; padding: 4px; border-radius: 8px; background: #fff0f5;">
+                            ${title || '魔法少女變身'}
+                        </div>
+                        <div style="border-radius: 12px; overflow: hidden; background: #000; border: 4px solid #ff69b4;">
+                            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+                                <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            return `<div style="width: ${width}; max-width: 100%; margin: 0 auto; box-sizing: border-box; ${wrapperStyle}">\n    ${innerContent}\n</div>`;
+        }
+
+        function updatePreviewAndCode() {
+            const urlInput = document.getElementById('yt-url').value;
+            const widthInput = document.getElementById('embed-width').value || '100%';
+            const heightInput = document.getElementById('embed-height').value || '450px';
+            const titleInput = document.getElementById('frame-title').value;
+            
+            const videoId = getYouTubeId(urlInput);
+            const generatedHtml = generateHTMLCode(videoId, widthInput, heightInput, titleInput);
+
+            document.getElementById('preview-container').innerHTML = generatedHtml;
+            document.getElementById('html-output').value = generatedHtml;
+        }
+
+        function copyCode() {
+            const textarea = document.getElementById('html-output');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const originalHTML = btn.innerHTML;
+                
+                // 按鈕複製成功狀態 (黃色)
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> 成功複製！`;
+                btn.classList.remove('bg-lofi-green', 'text-lofi-paper');
+                btn.classList.add('bg-lofi-yellow', 'text-lofi-line');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('bg-lofi-yellow', 'text-lofi-line');
+                    btn.classList.add('bg-lofi-green', 'text-lofi-paper');
+                }, 2000);
+            });
+        }
+
+        document.getElementById('yt-url').addEventListener('input', updatePreviewAndCode);
+        document.getElementById('embed-width').addEventListener('input', updatePreviewAndCode);
+        document.getElementById('embed-height').addEventListener('input', updatePreviewAndCode);
+        document.getElementById('frame-title').addEventListener('input', updatePreviewAndCode);
+
+        // 頁面載入初始化
+        window.onload = function() {
+            selectStyle('q-animal'); // 預設選擇
+        };
+    </script>
+</body>
+</html>
